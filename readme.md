@@ -1,4 +1,4 @@
-Propel issue #
+Propel issue 
 
 When working with a legacy database that has field like the following
 
@@ -6,17 +6,20 @@ When working with a legacy database that has field like the following
   `field_name` decimal(10,3) DEFAULT '1.000' NOT NULL
 ```
 
-propel generates a wrong migration omitting the `10,3`
+propel generates a wrong migration omitting the `10,3` in the type definition
+
 This can be reproduced using `make test` where a second migration will be created
 because the schema does not match with the generated migration.
 
+If you run into trouble on OSX
 
-If you run into trouble on OSX:
-  Unable to open PDO connection [wrapped: SQLSTATE[HY000] [2002] No such file or directory]
-  On Terminal, execute these commands
+`Unable to open PDO connection [wrapped: SQLSTATE[HY000] [2002] No such file or directory]`
+On Terminal, execute these commands
 
-  sudo mkdir /var/mysql/
-  sudo ln -s /private/tmp/mysql.sock /var/mysql/mysql.sock
+```bash
+sudo mkdir /var/mysql/
+sudo ln -s /private/tmp/mysql.sock /var/mysql/mysql.sock
+```
 
 
 I think the schema should look like the `expected_schema.xml` to see the differences run `make migrations && diff generated-reversed-database/schema.xml expected_schema.xml`
